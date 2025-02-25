@@ -40,10 +40,9 @@
                 ExibirOpcoes(error);
                 error = false;
 
-                try
+                // Usando TryParse para validar a entrada
+                if (int.TryParse(Console.ReadLine(), out voto))
                 {
-                    voto = int.Parse(Console.ReadLine());
-
                     if (voto == 0) break; // encerra while
                     if (voto < 1 || voto > 6)
                     {
@@ -51,9 +50,9 @@
                         continue;
                     }
                 }
-                catch
+                else
                 {
-                    error = true;
+                    error = true; // Entrada inválida (não é um número)
                     continue;
                 }
 
@@ -65,10 +64,10 @@
         public void ExibirResultado()
         {
             int totalVotos = 0;
-            for (int i = 1; i <= sistemas.Length-1; i++) totalVotos += votos[i];
+            for (int i = 1; i <= sistemas.Length - 1; i++) totalVotos += votos[i];
 
             if (totalVotos == 0)
-            {   
+            {
                 Console.Clear();
                 Console.WriteLine("Nenhum voto foi registrado.");
                 Console.WriteLine("\n\nPressione qualquer tecla para continuar");
@@ -76,7 +75,7 @@
                 return;
             }
 
-            Console.Clear() ;
+            Console.Clear();
             Console.WriteLine("\nSistema Operacional | Votos | %");
             Console.WriteLine("----------------------------------");
 
@@ -85,7 +84,7 @@
             {
                 // pegando porcentual de votos
                 double percentual = votos[i] / (double)totalVotos * 100;
-                Console.WriteLine($"{sistemas[i],-19} | {votos[i], -5} | {percentual:F2}%");
+                Console.WriteLine($"{sistemas[i],-19} | {votos[i],-5} | {percentual:F2}%");
 
                 if (votos[i] > votos[maisVotado])
                     maisVotado = i;
@@ -99,7 +98,5 @@
             Console.WriteLine("\n\nPressione qualquer tecla para continuar");
             Console.ReadKey();
         }
-        
     }
 }
-

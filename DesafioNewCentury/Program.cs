@@ -27,33 +27,28 @@ class Program
         {
             ExibirBoasVindas(error);
             error = false;
-            
-            try
-            {
-                result = int.Parse(Console.ReadLine());
 
-                if (result == 0) break;
-                if (result < 1 || result > 4)
-                {
-                    error = true;
-                    continue;
-                }
-            }
-            catch
+            string input = Console.ReadLine();
+            if (!int.TryParse(input, out result))
             {
                 error = true;
                 continue;
             }
 
+            if (result == 0) break;
+            if (result < 1 || result > 4)
+            {
+                error = true;
+                continue;
+            }
 
             Console.Clear();
             switch (result)
             {
                 case 1:
                     ReajusteSalarial reajusteSalarial = new ReajusteSalarial();
-                    reajusteSalarial.calcular();
+                    reajusteSalarial.Calcular();
                     break;
-
 
                 case 2:
                     ResultadoEnquete resultadoEnquete = new ResultadoEnquete();
@@ -63,7 +58,6 @@ class Program
                 case 3:
                     SalarioVendedores salarioVendedores = new SalarioVendedores();
                     salarioVendedores.ProcessarSalarios();
-
                     break;
 
                 case 4:
@@ -71,9 +65,6 @@ class Program
                     mercado.ProcessarVenda();
                     break;
             }
-
-
         }
     }
 }
-

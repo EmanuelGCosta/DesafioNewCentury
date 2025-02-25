@@ -14,57 +14,36 @@
                 Console.WriteLine("1 - Filé Duplo\n2 - Alcatra\n3 - Picanha");
                 Console.Write("Escolha o tipo de carne: ");
 
-                
-                try
+                if (int.TryParse(Console.ReadLine(), out opcao))
                 {
-                    opcao = int.Parse(Console.ReadLine()) - 1;
-                    if (opcao < 0 || opcao > 2)
+                    opcao -= 1; // Ajustando para índice do array
+                    if (opcao >= 0 && opcao <= 2)
                     {
-                        Console.Clear();
-                        Console.WriteLine("Opção inválida!");
-                        Thread.Sleep(1000);
-                        Console.Clear();
-                        continue;
+                        break; // Opção válida
                     }
-                    break;
                 }
-                catch
-                {
-                    Console.Clear();
-                    Console.Write("Apenas número!");
-                    Thread.Sleep(1000);
-                    Console.Clear();
-                }
+
+                Console.Clear();
+                Console.WriteLine("Opção inválida!");
+                Thread.Sleep(1000);
+                Console.Clear();
             }
 
             double quantidade = 0;
             // pegando quantidade em kg
             while (true)
             {
-                // repetindo while pois são só dois, se fosse vários com certeza faria uma funçao para tratar as entradas
                 Console.Write("Digite a quantidade (kg): ");
-                try
+                if (double.TryParse(Console.ReadLine(), out quantidade) && quantidade >= 0)
                 {
-                    quantidade = double.Parse(Console.ReadLine());
-                    if (quantidade < 0)
-                    {
-                        Console.WriteLine("Apenas número positivo!");
-                        Thread.Sleep(1000);
-                        Console.Clear();
-                        continue;
-                    }
-                    break;
+                    break; // Quantidade válida
                 }
-                catch
-                {
-                    Console.Clear();
-                    Console.WriteLine("Apenas números!");
-                    Thread.Sleep(1000);
-                    Console.Clear();
-                    continue;
-                }
-            }
 
+                Console.Clear();
+                Console.WriteLine("Apenas números positivos!");
+                Thread.Sleep(1000);
+                Console.Clear();
+            }
 
             // definindo qual sera o preco final da carne
             double precoKg = quantidade <= 5 ? precos[opcao, 0] : precos[opcao, 1];

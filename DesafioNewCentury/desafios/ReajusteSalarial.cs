@@ -2,50 +2,36 @@
 {
     internal class ReajusteSalarial
     {
-        public void calcular()
+        public void Calcular()
         {
             // Usando List para declarar os valores limite e porcentuais 
             List<double> salarioLimite = new List<double> { 280.00, 700.00, 1500.00, double.MaxValue };
             List<double> percent = new List<double> { 0.20, 0.15, 0.10, 0.05 };
 
             double salario = 0;
-            while(true)
+            while (true)
             {
                 Console.Write("Digite o salário atual do colaborador: ");
-                try
+                if (double.TryParse(Console.ReadLine(), out salario) && salario >= 0)
                 {
-                    salario = double.Parse(Console.ReadLine());
-                    if(salario < 0 )
-                    {
-                        Console.Clear();
-                        Console.Write("Apenas número positivo!");
-                        Thread.Sleep(1000);
-                        Console.Clear();
-                        continue;
-                    }
-                    break;
+                    break; // Sai do loop se o salário for válido
                 }
-                catch
-                {
-                    Console.Clear();
-                    Console.Write("Apenas números por favor!");
-                    Thread.Sleep(1000);
-                    Console.Clear();
-                    continue;
-                }
+
+                Console.Clear();
+                Console.WriteLine("Apenas números positivos, por favor!");
+                Thread.Sleep(1000);
+                Console.Clear();
             }
 
-            
-
-            // encontrando o indice
+            // Encontrando o índice
             int indicePercent = salarioLimite.FindIndex(limite => salario <= limite);
             double percentual = percent[indicePercent];
 
-            // calculando salario com aumento
+            // Calculando salário com aumento
             double aumento = salario * percentual;
             double novoSalario = salario + aumento;
 
-
+            // Exibindo resultados
             Console.WriteLine("\n\n\n--------- Resultado ---------");
             Console.WriteLine($"Salário antes do reajuste: R$ {salario:F2}");
             Console.WriteLine($"Percentual do aumento: {percentual * 100}%");
@@ -56,5 +42,4 @@
             Console.ReadKey();
         }
     }
-
 }
